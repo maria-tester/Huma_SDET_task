@@ -286,18 +286,14 @@ Cases marked **⚠️ Needs clarification** go further: the requirement itself i
 
 ## 8. Cross-cutting
 
+*(TC-CROSS-02 was retired — keyboard accessibility was never a stated requirement for this app; the finding from exploring it lives in `TEST_SUMMARY.md`'s Suggested improvements instead of as a formal pass/fail case.)*
+
 ### TC-CROSS-01 — Mid-game reload ⚠️ Needs clarification
 - **Preconditions:** Game in progress, unfinished.
 - **Steps:** Reload the page.
 - **Current behavior:** the in-progress game is lost and a new game starts — no warning is given before the reload discards it.
 - **Open question:** is silently discarding an unfinished game the intended behavior? A confirmation popup before leaving/reloading (similar to the "Change difficulty and start a new game?" prompt in TC-AI-04) would be a reasonable safeguard, but this should be confirmed with the team rather than assumed as a requirement.
 - **Priority:** P1
-
-### TC-CROSS-02 — Keyboard accessibility
-- **Preconditions:** On Play screen.
-- **Steps:** Tab through difficulty select, board, and buttons; use Enter/Space to activate.
-- **Expected:** All elements reachable in a logical order; focus visible; a focused cell can be activated via keyboard.
-- **Priority:** P2
 
 ### TC-CROSS-03 — No unhandled console errors
 - **Preconditions:** Dev tools open.

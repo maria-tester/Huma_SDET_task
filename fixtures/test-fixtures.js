@@ -7,6 +7,16 @@ const test = base.test.extend({
     await use(unique);
   },
 
+  page: async ({ page }, use) => {
+    const errors = [];
+    page.on('pageerror', (err) => errors.push(err.message));
+    page.on('console', (msg) => {
+      if (msg.type() === 'error') errors.push(msg.text());
+    });
+    await use(page);
+    base.expect(errors, `TC-CROSS-03: unexpected console/page errors:\n${errors.join('\n')}`).toEqual([]);
+  },
+
   signedUpPage: async ({ page, uniqueName }, use) => {
     const authPage = new AuthPage(page);
     await authPage.goto();

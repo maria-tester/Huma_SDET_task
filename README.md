@@ -20,6 +20,7 @@ playwright.config.js     serves _sut/ over http:// and runs the suites against i
 
 - **What's the app, what's the plan, what's in/out of scope:** [`_test-documentation/TEST_PLAN.md`](./_test-documentation/TEST_PLAN.md)
 - **Every test case, automated or manual:** [`_test-documentation/TEST_CASES.md`](./_test-documentation/TEST_CASES.md)
+- **Which case maps to which test (or manual result):** [`_test-documentation/TRACEABILITY_MATRIX.md`](./_test-documentation/TRACEABILITY_MATRIX.md)
 - **Results, findings, open questions, suggested improvements:** [`_test-documentation/TEST_SUMMARY.md`](./_test-documentation/TEST_SUMMARY.md)
 - **Bug reports:** [`_test-documentation/bugs/`](./_test-documentation/bugs/)
 

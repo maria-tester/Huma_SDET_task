@@ -65,13 +65,17 @@ test.describe('Profile', () => {
     await expect(profilePage.created).toHaveText(createdBefore ?? '');
   });
 
-  test('TC-PROF-04a @P2 deleting the account requires confirmation and removes it', async ({ page, uniqueName }) => {
+  test('TC-PROF-04a @P2 / TC-AUTH-08 @P1 deleting the account removes it and its history', async ({ page, uniqueName }) => {
     const authPage = new AuthPage(page);
     const nav = new NavBar(page);
+    const gamePage = new GamePage(page);
     await authPage.goto();
     await authPage.signUp(uniqueName);
+    await gamePage.difficultySelect.selectOption('hard');
+    await playSequence(gamePage, FIXED_SEQUENCES.playerWinOnHard);
     const profilePage = new ProfilePage(page);
     await nav.profileLink.click();
+    await expect(profilePage.wins).toHaveText('1');
 
     page.once('dialog', (dialog) => {
       expect(dialog.message()).toBe('Delete this account and all its data? This cannot be undone.');
@@ -82,6 +86,10 @@ test.describe('Profile', () => {
     await expect(authPage.form).toBeVisible();
     await authPage.signUp(uniqueName);
     await expect(nav.helloUser).toHaveText(`Hello, ${uniqueName}`);
+    await nav.profileLink.click();
+    await expect(profilePage.wins).toHaveText('0');
+    await expect(profilePage.losses).toHaveText('0');
+    await expect(profilePage.draws).toHaveText('0');
   });
 
   test('TC-PROF-04b @P2 cancelling account deletion leaves the account intact', async ({ signedUpPage: page, uniqueName }) => {

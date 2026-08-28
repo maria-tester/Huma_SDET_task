@@ -24,7 +24,17 @@ function findWinningMove(board, mark) {
 }
 
 async function waitForComputerReply(gamePage) {
-  await expect(gamePage.status).not.toHaveAttribute('data-status', 'computer-thinking', { timeout: 5000 });
+  const oCountBefore = (await readBoard(gamePage)).filter((mark) => mark === 'o').length;
+  await expect
+    .poll(
+      async () => {
+        const oCountNow = (await readBoard(gamePage)).filter((mark) => mark === 'o').length;
+        const status = await gamePage.status.getAttribute('data-status');
+        return oCountNow > oCountBefore || (status !== 'computer-thinking' && status !== 'your-turn');
+      },
+      { timeout: 5000 }
+    )
+    .toBe(true);
   return gamePage.status.getAttribute('data-status');
 }
 

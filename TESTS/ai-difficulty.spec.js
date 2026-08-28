@@ -21,7 +21,8 @@ test.describe('AI difficulty', () => {
 
     const outcomes = await playSmartGames(gamePage, 5);
 
-    expect(outcomes).not.toEqual(Array(5).fill('computer'));
+    expect(outcomes).toContain('human');
+    expect(outcomes).not.toEqual(Array(5).fill('human'));
   });
 
   // BUG-001 (_test-documentation/bugs/): intentionally left failing, not
