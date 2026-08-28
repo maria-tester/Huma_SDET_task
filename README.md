@@ -62,7 +62,7 @@ npx playwright show-report            # HTML report from the last run
 
 ## What's automated vs. manual
 
-All P0 + P1 ("critical") flows are automated — 34 tests across 6 suites (auth, gameplay, AI difficulty, history, profile, plus a smoke suite for deploy checks). P2/P3 items (Hint, language/theme, keyboard accessibility) are intentionally left as manual test cases. Full rationale and the manual checklist: `TEST_SUMMARY.md` sections 2 and 6.
+All P0 + P1 ("critical") flows are automated — 34 tests across 6 suites (auth, gameplay, AI difficulty, history, profile, plus a smoke suite for deploy checks). Remaining P2/P3 cases (Hint, language/theme — 8 cases) were executed manually on Chromium; all pass. Full rationale and results: `_test-documentation/TEST_SUMMARY.md`.
 
 **One test currently fails on purpose:** `TC-AI-03` asserts that "Hard" difficulty never loses to the player — it doesn't (BUG-001, see `_test-documentation/bugs/`), so the test is red. That's intentional: the suite is left honest about the app's actual state rather than muting a known failure to keep the run green.
 
@@ -71,4 +71,4 @@ All P0 + P1 ("critical") flows are automated — 34 tests across 6 suites (auth,
 [`.github/workflows/playwright.yml`](./.github/workflows/playwright.yml) (Chromium, Node 22, HTML report uploaded as a build artifact either way):
 
 - **On every push/PR to `main`:** runs only the smoke suite (`npm run test:smoke`) — fast, and expected to always be green. This is the "is the app still alive" gate for routine commits.
-- **On manual trigger** (Actions tab → *Playwright Tests* → *Run workflow*): runs the full suite, including `TC-AI-03`, which fails on purpose (BUG-001 — see `_test-documentation/bugs/`). This is a deliberate, honest failure, not a broken pipeline — the full run is opt-in precisely so that one known, tracked defect doesn't turn every routine push red while still being fully visible whenever someone chooses to check.
+- **On manual trigger** (Actions tab → *Playwright Tests* → *Run workflow*): pick a `suite` from the dropdown — `full` (everything, including `TC-AI-03`, which fails on purpose for BUG-001 — see `_test-documentation/bugs/`), or any single suite/priority (`smoke`, `auth`, `gameplay`, `ai`, `history`, `profile`, `p0`, `p1`, `critical`). A `full` run failing on `TC-AI-03` is a deliberate, honest failure, not a broken pipeline — it's opt-in precisely so that one known, tracked defect doesn't turn every routine push red while still being fully visible whenever someone chooses to check.

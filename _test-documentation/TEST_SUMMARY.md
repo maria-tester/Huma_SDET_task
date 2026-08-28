@@ -4,7 +4,7 @@ Status as of **2026-08-28**. Details: `TEST_PLAN.md` (scope), `TEST_CASES.md` (a
 
 ## What was done
 
-- Exploratory pass, test plan, 44 test cases (P0–P3).
+- Exploratory pass, test plan, 43 test cases (P0–P3).
 - All P0 + P1 ("critical flows") automated: **34 Playwright tests across 6 suites**. 33 pass; 1 fails on purpose (see below).
 - Every test also gets a free console-error check (TC-CROSS-03) via a shared fixture.
 - Remaining P2/P3 cases (Hint, language/theme — 8 cases) executed manually on Chromium.
