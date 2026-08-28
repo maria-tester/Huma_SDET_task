@@ -52,7 +52,7 @@ comparable.
 
 1. Next number: check existing files in `_test-documentation/bugs/` first, don't reuse a number.
 2. Use this exact template (see `BUG-001-hard-difficulty-is-beatable.md` for a full worked
-   example, and `BUG-002-difficulty-select-desyncs-on-cancel.md` for how a retracted one looks):
+   example):
 
    ```markdown
    # BUG-<NNN> — <short, specific title>
@@ -88,13 +88,10 @@ comparable.
    <anything that doesn't fit above — related findings, things ruled out>
    ```
 
-3. **Before filing, try to disprove it.** The repo's own house lesson (`BUG-002`): a repro
-   found via devtools/console DOM manipulation (`element.value = ...` + manual `change` event,
-   directly editing `localStorage`, etc.) can produce behavior a real user interaction never
-   would. Re-check any such finding with an actual click/keyboard interaction before writing it
-   up as Open. If it doesn't hold up, file it anyway but mark it **Invalid — retracted**,
-   explain why in a "Why this was retracted" section — don't just delete the finding, per this
-   repo's own precedent of keeping a record of what was checked.
+3. **Before filing, try to disprove it.** A repro found via devtools/console DOM manipulation
+   (`element.value = ...` + manual `change` event, directly editing `localStorage`, etc.) can
+   produce behavior a real user interaction never would. Re-check any such finding with an
+   actual click/keyboard interaction before writing it up as Open.
 4. If a bug is Open and testable in a stable, deterministic way, note in **Evidence** whether it
    *should* get a regression test (see `add-test-coverage`), and whether that test should be
    written to currently fail (documenting a known defect) rather than skipped — see

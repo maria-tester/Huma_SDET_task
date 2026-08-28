@@ -44,8 +44,7 @@ npx playwright test --grep "TC-AUTH-01"   # a single test case by ID
   Playwright, following the POM/fixture/naming conventions below.
 - **`manual-testing`** — act as the manual/exploratory tester: write new entries in
   `TEST_CASES.md` and file bug reports in `_test-documentation/bugs/`, using this repo's exact
-  templates (see `BUG-001` and `BUG-002` for worked examples, including how a retracted bug is
-  written up).
+  templates (see `BUG-001` for a worked example).
 
 ## Conventions to preserve
 
