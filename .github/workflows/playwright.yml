@@ -5,7 +5,24 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      suite:
+        description: 'Which suite to run'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+          - full
+          - smoke
+          - auth
+          - gameplay
+          - ai
+          - history
+          - profile
+          - p0
+          - p1
+          - critical
 
 jobs:
   test:
@@ -23,13 +40,27 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
-      - name: Run smoke suite (push/PR)
-        if: github.event_name != 'workflow_dispatch'
-        run: npm run test:smoke
-
-      - name: Run full suite (manual trigger — includes known BUG-001 failure)
-        if: github.event_name == 'workflow_dispatch'
-        run: npx playwright test
+      - name: Run tests
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            SUITE="${{ github.event.inputs.suite }}"
+          else
+            SUITE="smoke"
+          fi
+          echo "Running suite: $SUITE"
+          case "$SUITE" in
+            full) npx playwright test ;;
+            smoke) npm run test:smoke ;;
+            auth) npm run test:auth ;;
+            gameplay) npm run test:gameplay ;;
+            ai) npm run test:ai ;;
+            history) npm run test:history ;;
+            profile) npm run test:profile ;;
+            p0) npm run test:p0 ;;
+            p1) npm run test:p1 ;;
+            critical) npm run test:critical ;;
+            *) echo "Unknown suite: $SUITE"; exit 1 ;;
+          esac
 
       - name: Upload HTML report
         if: always()
