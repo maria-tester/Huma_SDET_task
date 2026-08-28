@@ -1,0 +1,24 @@
+{
+  "name": "tic-tac-toe-qa",
+  "version": "1.0.0",
+  "description": "Playwright E2E automation for the Tic-Tac-Toe project",
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test TESTS/smoke.spec.js",
+    "test:critical": "playwright test --grep \"@P0|@P1\"",
+    "test:p0": "playwright test --grep @P0",
+    "test:p1": "playwright test --grep @P1",
+    "test:auth": "playwright test TESTS/auth.spec.js",
+    "test:gameplay": "playwright test TESTS/gameplay.spec.js",
+    "test:ai": "playwright test TESTS/ai-difficulty.spec.js",
+    "test:history": "playwright test TESTS/history.spec.js",
+    "test:profile": "playwright test TESTS/profile.spec.js",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "http-server": "^14.1.1"
+  }
+}
